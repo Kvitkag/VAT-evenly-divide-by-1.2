@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вирахування ПДВ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="pdv">
+        <h1>Введіть суму, для якої потрібно порахувати ПДВ:</h1>
+        <input type="text" name="pdv"> <!-- min="0" value="0" -->
+        <button type="button" class="pdv_button"> Ввести </button>
+        <output id="result">Результат</output>
+    </div>
+
+    <!-- <label>
+        Enter new login
+        <input type="text" name="log">
+    </label>
+    <button>Add</button> -->
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
+    <!-- <script type="module" src="./js/pdv.js"></script> -->
+    <script>
+    "use strict";
+
+        const pdv = 120;
+        let arrPriceWithPdv = [];
+        let pdv_button = document.querySelector('button[class="pdv_button"]');
+
+        const findFinePriceForPDV = function (arr) {
+            let arrPriceWithoutPdv = [];
+
+            for (let i = 0; i < arr.length; i += 1) {
+                let priceWithoutPdv = arr[i] / pdv * 100;
+                let result = arr[i] * 100 % pdv;
+
+                while (result !== 0) {
+                    arr[i] = arr[i] + 1;
+                    priceWithoutPdv = arr[i] / pdv * 100;
+                    result = arr[i] * 100 % pdv;
+                };
+
+                arrPriceWithoutPdv.push(priceWithoutPdv);
+            };
+            arrPriceWithoutPdv.forEach(element => document.write(element, '<br>'));
+            // let text = document.getElementById("result").textContent = arrPriceWithoutPdv;
+            console.log(1);
+            console.log(document.getElementById("result"));
+            console.log(document.getElementById("result").textContent);
+            return arrPriceWithoutPdv;
+        }
+
+        pdv_button.addEventListener('click', function () {
+            arrPriceWithPdv = document.querySelector('input').value.split(' ');
+            if (isNaN(arrPriceWithPdv)) {
+                console.log('Ви ввели не числове значення!');
+            }
+            console.log('1', arrPriceWithPdv);
+            let arrPriceWithPdvNumber = arrPriceWithPdv.map(element => Number(element));
+            console.log('2', arrPriceWithPdvNumber);
+            console.log('3', findFinePriceForPDV(arrPriceWithPdvNumber));
+        });
+
+        console.log(arrPriceWithPdv);
+    </script>
+</body>
+</html>
